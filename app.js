@@ -5,13 +5,17 @@ const game = {
   secretNum: null,
   prevGuesses:  [],
   getGuess: function() {
-    prompt(`Enter a guess between ${this.smallestNum} and this.${biggestNum}`)
+    prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`)
   },
-  // play: function() {
-  //   this.secretNum = Math.floor(Math.random() * 
-  //     (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
-  // },
+  play: function() {
+    this.secretNum = Math.floor(Math.random() * 
+      (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
+      console.log(this.secretNum) //REMOVE LATER
+  },
 }
+
+
+window.onload = game.getGuess
 
 // 1. Add a `prevGuesses` property to the `game` object initialized to an empty array.
 
