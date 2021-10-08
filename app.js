@@ -1,21 +1,32 @@
+const numInput = document.getElementById("numInput")
+const playBtn = document.getElementById("playBtn")
+
+
 const game = {
   title: 'Guess the Number!',
   biggestNum: 100,
   smallestNum: 1,
   secretNum: null,
   prevGuesses:  [],
+  currentGuess: null,
   getGuess: function() {
-    prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`)
+    this.currentGuess = numInput.value
+    console.log(numInput.value)
   },
-  play: function() {
+  generateNum: function() {
     this.secretNum = Math.floor(Math.random() * 
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
       console.log(this.secretNum) //REMOVE LATER
   },
 }
 
+const testBtn = function(){
+  console.log("click")
+}
 
-window.onload = game.getGuess
+playBtn.addEventListener("click", game.getGuess)
+
+window.onload = game.generateNum()
 
 // 1. Add a `prevGuesses` property to the `game` object initialized to an empty array.
 
