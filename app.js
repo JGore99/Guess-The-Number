@@ -1,6 +1,7 @@
 const numInput = document.getElementById("numInput")
 const playBtn = document.getElementById("playBtn")
 const response = document.querySelector(".response")
+const previousGuesses = document.getElementById("previousGuesses")
 
 const game = {
   title: 'Guess the Number!',
@@ -18,22 +19,56 @@ game.generateNum = function() {
 }
 
 game.processGuess = function() {
-  game.currentGuess = parseInt(numInput.value)
-  game.handleResponse() //?? WHY ISN'T IT "THIS"???
+  this.currentGuess = parseInt(numInput.value)
+  this.handleResponse() //?? WHY ISN'T IT "THIS"???
 }
 
 game.handleResponse = function() {
-  console.log(game.currentGuess)
-  isNaN(game.currentGuess) ? response.innerHTML = "Please enter a number" : game.compareNumbers()
+  console.log(this.currentGuess)
+  isNaN(this.currentGuess) ? response.innerHTML = "Please only enter numbers below" : game.compareNumbers()
   numInput.value = ""
 }
 
 game.compareNumbers = function() {
-  console.log("Derp??")
-  game.secretNum === game.currentGuess ? response.innerHTML = "Congratulations! You win!!!" : response.innerHTML = "Please try another guess"
+  this.logPreviousGuesses()
+  this.showPreviousGuesses()
+  if (game.secretNum === game.currentGuess){
+    response.innerHTML = "Congratulations! You win!!!"
+    this.buttonChangeOnWin()
+    this.resetPreviousGuess()
+  } else if (game.secretNum > game.currentGuess){
+    response.innerHTML = "Your guess is too low. </br> Please try again." // REMEBER THE LINE BREAKS HERE, MIGHT NOT BE BEST PRACTICE
+  } else {
+    response.innerHTML = "Your guess is too high. </br> Please try again."
+  }
 }
 
-playBtn.addEventListener("click", game.processGuess)
+game.buttonChangeOnWin = function() {
+
+}
+
+game.resetPreviousGuess = function() {
+  this.prevGuesses = []
+}
+
+game.logPreviousGuesses = function() {
+  this.prevGuesses.push(this.currentGuess)
+  console.log(this.prevGuesses)
+}
+
+game.showPreviousGuesses = function() {
+  let prevGuessesJoined = this.prevGuesses.join(" ")
+  previousGuesses.innerHTML = prevGuessesJoined
+}
+
+const boundProcessGuess = game.processGuess.bind(game)
+playBtn.addEventListener("click", boundProcessGuess)
+numInput.addEventListener("keypress", function(e) {
+  if(e.key === "Return" || e.key === "Enter") {
+    boundProcessGuess()
+  }
+})
+
 
 window.onload = game.generateNum()
 
