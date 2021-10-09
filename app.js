@@ -13,6 +13,19 @@ const game = {
   gameOver: false,
 }
 
+game.start = function() {
+  if (this.gameOver){
+    this.generateNum()
+    this.gameOver = false
+    this.buttonResetToPlay()
+    this.resetPreviousGuess()
+  } else {
+    this.processGuess()
+    this.handleResponse()
+  }
+    
+}
+
 game.generateNum = function() {
   this.secretNum = Math.floor(Math.random() * 
     (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
@@ -21,7 +34,7 @@ game.generateNum = function() {
 
 game.processGuess = function() {
   this.currentGuess = parseInt(numInput.value)
-  this.handleResponse()
+  
 }
 
 game.handleResponse = function() {
@@ -37,8 +50,8 @@ game.compareNumbers = function() {
     response.innerHTML = "Congratulations! You win!!!"
     this.gameOver = true
     this.buttonChangeOnWin()
-    this.resetPreviousGuess()
-    this.generateNum()
+    // this.resetPreviousGuess()
+    // this.generateNum()
   } else if (game.secretNum > game.currentGuess){
     response.innerHTML = "Your guess is too low. </br> Please try again." // REMEBER THE LINE BREAKS HERE, MIGHT NOT BE BEST PRACTICE
   } else {
@@ -48,6 +61,10 @@ game.compareNumbers = function() {
 
 game.buttonChangeOnWin = function() {
   playBtn.innerHTML = "Play Again!"
+}
+
+game.buttonResetToPlay = function() {
+  playBtn.innerHTML = "Play"
 }
 
 game.resetPreviousGuess = function() {
@@ -64,11 +81,11 @@ game.showPreviousGuesses = function() {
   previousGuesses.innerHTML = prevGuessesJoined
 }
 
-const boundProcessGuess = game.processGuess.bind(game)
-playBtn.addEventListener("click", boundProcessGuess)
+const boundStart = game.start.bind(game)
+playBtn.addEventListener("click", boundStart)
 numInput.addEventListener("keypress", function(e) {
   if(e.key === "Return" || e.key === "Enter") {
-    boundProcessGuess()
+    boundStart()
   }
 })
 
