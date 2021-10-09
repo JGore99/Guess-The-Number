@@ -10,6 +10,7 @@ const game = {
   secretNum: null,
   prevGuesses:  [],
   currentGuess: null,
+  gameOver: false,
 }
 
 game.generateNum = function() {
@@ -20,7 +21,7 @@ game.generateNum = function() {
 
 game.processGuess = function() {
   this.currentGuess = parseInt(numInput.value)
-  this.handleResponse() //?? WHY ISN'T IT "THIS"???
+  this.handleResponse()
 }
 
 game.handleResponse = function() {
@@ -34,8 +35,10 @@ game.compareNumbers = function() {
   this.showPreviousGuesses()
   if (game.secretNum === game.currentGuess){
     response.innerHTML = "Congratulations! You win!!!"
+    this.gameOver = true
     this.buttonChangeOnWin()
     this.resetPreviousGuess()
+    this.generateNum()
   } else if (game.secretNum > game.currentGuess){
     response.innerHTML = "Your guess is too low. </br> Please try again." // REMEBER THE LINE BREAKS HERE, MIGHT NOT BE BEST PRACTICE
   } else {
@@ -44,7 +47,7 @@ game.compareNumbers = function() {
 }
 
 game.buttonChangeOnWin = function() {
-
+  playBtn.innerHTML = "Play Again!"
 }
 
 game.resetPreviousGuess = function() {
