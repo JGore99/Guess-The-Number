@@ -1,6 +1,6 @@
 const numInput = document.getElementById("numInput")
 const playBtn = document.getElementById("playBtn")
-
+const response = document.querySelector(".response")
 
 const game = {
   title: 'Guess the Number!',
@@ -9,22 +9,31 @@ const game = {
   secretNum: null,
   prevGuesses:  [],
   currentGuess: null,
-  getGuess: function() {
-    this.currentGuess = numInput.value
-    console.log(numInput.value)
-  },
-  generateNum: function() {
-    this.secretNum = Math.floor(Math.random() * 
-      (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
-      console.log(this.secretNum) //REMOVE LATER
-  },
 }
 
-const testBtn = function(){
-  console.log("click")
+game.generateNum = function() {
+  this.secretNum = Math.floor(Math.random() * 
+    (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
+    console.log(this.secretNum) //REMOVE LATER
 }
 
-playBtn.addEventListener("click", game.getGuess)
+game.processGuess = function() {
+  game.currentGuess = parseInt(numInput.value)
+  game.handleResponse() //?? WHY ISN'T IT "THIS"???
+}
+
+game.handleResponse = function() {
+  console.log(game.currentGuess)
+  isNaN(game.currentGuess) ? response.innerHTML = "Please enter a number" : game.compareNumbers()
+  numInput.value = ""
+}
+
+game.compareNumbers = function() {
+  console.log("Derp??")
+  game.secretNum === game.currentGuess ? response.innerHTML = "Congratulations! You win!!!" : response.innerHTML = "Please try another guess"
+}
+
+playBtn.addEventListener("click", game.processGuess)
 
 window.onload = game.generateNum()
 
@@ -47,8 +56,19 @@ window.onload = game.generateNum()
 //     - If the secret has been guessed: `Congrats! You guessed the number in [number of prevGuesses]!`
 //     - Otherwise: `Your guess is too [high|low] Previous guesses: x, x, x, x`
 //     - Hints:
-//         - `render` won’t be able to access any of `play`’s local variables, e.g., `guess`, so be sure pass `render` any arguments as needed (you may have not built your program to use any, that's ok if that's the case!)
+//         - `render` won’t be able to access any of `play`’s local variables, e.g., 
+//          `guess`, so be sure pass `render` any arguments as needed (you may have not built your program to use any, that's ok if that's the case!)
 //         - Template literals not only have interpolation, but they also honor whitespace - including line breaks!
 //         - The list of previous guesses can be generated using the array `join` method.
 
 // 6. The `play` method should end (`return`) when the guess matches `secretNum`.
+
+
+// 1) generate number
+// 2) prompt player to make guess
+// 3) check if guess isNaN or not.
+// 4) parseINt if not
+// 4.5) clear input
+// 5) compare guess to generated num
+// 6) if match, player wins. run win sequence
+// 7) if not match, prompt player to guess again
