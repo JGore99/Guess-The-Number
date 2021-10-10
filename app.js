@@ -15,10 +15,11 @@ const game = {
 
 game.start = function() {
   if (this.gameOver){
+    this.resetPreviousGuess()
+    this.showPreviousGuesses()
     this.generateNum()
     this.gameOver = false
-    this.buttonResetToPlay()
-    this.resetPreviousGuess()
+    this.buttonResetToPlay()  
   } else {
     this.processGuess()
     this.handleResponse()
