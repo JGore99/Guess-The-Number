@@ -61,7 +61,7 @@ game.compareNumbers = function() {
 }
 
 game.buttonChangeOnWin = function() {
-  playBtn.innerHTML = "Play Again!"
+  playBtn.innerHTML = "Play </br> Again!"
 }
 
 game.buttonResetToPlay = function() {
@@ -78,8 +78,10 @@ game.logPreviousGuesses = function() {
 }
 
 game.showPreviousGuesses = function() {
-  let prevGuessesJoined = this.prevGuesses.join(" ")
-  previousGuesses.innerHTML = prevGuessesJoined
+  if(this.prevGuesses.length > 0){
+    let prevGuessesJoined = this.prevGuesses.join(", ")
+  previousGuesses.innerHTML = `<span class="p-title">Previous Guesses</span><br/> ${prevGuessesJoined}`
+  } 
 }
 
 const boundStart = game.start.bind(game)

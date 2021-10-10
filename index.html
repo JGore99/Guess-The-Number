@@ -5,12 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script defer src="./app.js"></script>
+  <link rel="stylesheet" href="style.css"/>
   <title>Guess The Number Game</title>
 </head>
 <body>
   <section id="mainSection">
     <h1>Guess The Number</h1>
-    <h2 class="response"  >Please enter your guess here:</h2>
+    <h3 class="subTitle">(Between 1 and 100)</h3>
+    <h2 class="response"  >Please enter your guess below:</h2>
     <input type="text" id="numInput" required maxlength="3" minlength="1">
     <button id="playBtn">Play</button>
     <p id="previousGuesses"></p>
