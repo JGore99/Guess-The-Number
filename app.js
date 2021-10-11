@@ -49,13 +49,13 @@ game.compareNumbers = function() {
   this.logPreviousGuesses()
   this.showPreviousGuesses()
   if (game.secretNum === game.currentGuess){
-    response.innerHTML = "Congratulations! You win!!!"
+    response.innerHTML = `Congratulations! You win!!!`
     this.gameOver = true
     this.buttonChangeOnWin()
   } else if (game.secretNum > game.currentGuess){
-    response.innerHTML = "Your guess is too low. </br> Please try again." 
+    response.innerHTML = `${this.currentGuess} is too low. </br> Please try again.`
   } else {
-    response.innerHTML = "Your guess is too high. </br> Please try again."
+    response.innerHTML = `${this.currentGuess} is too high. </br> Please try again.`
   }
 }
 
